@@ -5,7 +5,9 @@ export default class Landing extends Component {
   render() {
     return (
       <div>
-        <Link to='/doctor'>Doctor</Link>
+        <Link to='/doctors'>Doctor</Link>
+        <Link to='/child'>Child</Link>
+        <Link to='/parent'>Parent</Link>
       </div>
     );
   }

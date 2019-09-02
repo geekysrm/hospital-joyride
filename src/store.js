@@ -5,13 +5,13 @@ import { reactReduxFirebase, firebaseReducer } from "react-redux-firebase";
 import { reduxFirestore, firestoreReducer } from "redux-firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCOvEaShFAZ5HoirhFMKHgkUwNFWxNR4tA",
-  authDomain: "hack-philips.firebaseapp.com",
-  databaseURL: "https://hack-philips.firebaseio.com",
-  projectId: "hack-philips",
-  storageBucket: "hack-philips.appspot.com",
-  messagingSenderId: "887431485930",
-  appId: "1:887431485930:web:5fdcf4c29d82fc35"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
 
 // react-redux-firebase config
