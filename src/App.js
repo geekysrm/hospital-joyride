@@ -10,6 +10,8 @@ import Parent from "./components/Parent/Parent";
 import Landing from "./components/Landing/Landing";
 import Navbar from "./components/Navbar/Navbar";
 
+import "semantic-ui-css/semantic.min.css";
+
 function App() {
   return (
     <Provider store={store}>

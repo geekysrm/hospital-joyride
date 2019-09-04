@@ -1,0 +1,22 @@
+.header {
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.header-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 5px;
+}
+
+.header-email {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 700;
+  color: rgb(116, 116, 116);
+}
