@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
+import {
+  firestoreConnect,
+  isLoaded,
+  isEmpty,
+  withFirestore
+} from "react-redux-firebase";
+import { getFirestore } from "redux-firestore";
 
 class Doctor extends Component {
   render() {
@@ -14,14 +20,37 @@ class Doctor extends Component {
         ) : (
           <div>Loading...</div>
         )}
+        <div
+          onClick={() => {
+            const firestore = getFirestore();
+            // firestore.collection("doctors").add(doctors[0]);
+            // firestore
+            //   .collection("doctors")
+            //   .doc(doctors[0].id)
+            //   .update({
+            //     name: "sai",
+            //     hospital: "amiya"
+            //   });
+            // firestore
+            //   .collection("doctors")
+            //   .doc(doctors[1].id)
+            //   .delete();
+          }}
+        >
+          Change !!
+        </div>
       </div>
     );
   }
 }
 
-export default compose(
-  firestoreConnect([{ collection: "doctors" }]), // or { collection: 'todos' }
-  connect((state, props) => ({
-    doctors: state.firestore.ordered.doctors
-  }))
-)(Doctor);
+const mapStateToProps = (state, props) => ({
+  doctors: state.firestore.ordered.doctors
+});
+
+export default withFirestore(
+  compose(
+    firestoreConnect([{ collection: "doctors" }]), // or { collection: 'todos' }
+    connect(mapStateToProps)
+  )(Doctor)
+);
