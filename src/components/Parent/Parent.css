@@ -1,3 +1,9 @@
+.page-container {
+  width: 100%;
+  min-height: 85vh;
+  position: relative;
+}
+
 .header {
   width: 100%;
   background-color: #f8f9fa;
@@ -19,4 +25,18 @@
   text-align: center;
   font-weight: 700;
   color: rgb(116, 116, 116);
+}
+
+.heading {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 5px;
+}
+
+.footer {
+  width: 100%;
+  padding: 20px;
+  background-color: #f8f9fa;
+  position: absolute;
+  bottom: 10px;
 }
