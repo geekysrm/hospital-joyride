@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import "./HelpChatbot.css";
+import chatBotImage from "../../assets/chat-bot.jpg";
 
 import { Image } from "semantic-ui-react";
 import { Badge } from "antd";
@@ -102,7 +103,7 @@ class HelpChatbot extends Component {
             <div>
               <Image
                 style={{ width: "50px" }}
-                src="https://i.pinimg.com/736x/3a/87/9f/3a879f07d46ec94c28e7ca9e6f111790.jpg"
+                src={chatBotImage}
                 size="tiny"
                 circular
               />
