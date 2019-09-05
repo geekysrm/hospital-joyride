@@ -47,17 +47,17 @@ class Parent extends Component {
 
             <div style={{ paddingTop: "15px", paddingBottom: "50px" }}>
               <div className="heading">
-                Your Childrens Current Treatments -{" "}
+                Your Children's Current Treatments -{" "}
               </div>
               <div style={{ paddingTop: "15px" }}>
                 <Segment>
-                  Your childrens don't have any current treatments
+                  Your children don't have any current treatments
                 </Segment>
               </div>
             </div>
 
             <div style={{ paddingTop: "15px", paddingBottom: "50px" }}>
-              <div className="heading">Your Childrens Past Treatments - </div>
+              <div className="heading">Your Children's Past Treatments - </div>
               <div style={{ paddingTop: "15px" }}>
                 {this.renderPastTreatments()}
               </div>
