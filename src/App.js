@@ -8,6 +8,8 @@ import Doctor from "./components/Doctor/Doctor";
 import Child from "./components/Child/Child";
 import Parent from "./components/Parent/Parent";
 import Landing from "./components/Landing/Landing";
+import HelpChatbot from "./components/HelpChatbot/HelpChatbot";
+
 import Navbar from "./components/Navbar/Navbar";
 
 import "semantic-ui-css/semantic.min.css";
@@ -23,6 +25,7 @@ function App() {
             <Route exact path="/doctors" component={Doctor}></Route>
             <Route exact path="/child" component={Child}></Route>
             <Route exact path="/parent" component={Parent}></Route>
+            <Route exact path="/chat" component={HelpChatbot}></Route>
           </Switch>
         </div>
       </Router>

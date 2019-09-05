@@ -1,0 +1,11 @@
+.chatbot-container {
+  margin: 10px;
+  border: 2px solid #eee;
+  border-radius: 5px;
+  min-height: 85vh;
+}
+
+.chat-header {
+  background-color: #f8f9fa;
+  padding: 10px;
+}

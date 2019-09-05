@@ -9,29 +9,45 @@ import {
 } from "react-redux-firebase";
 import { getFirestore } from "redux-firestore";
 
-import { Icon, Placeholder, Segment, Button } from "semantic-ui-react";
+import { Icon, Placeholder, Segment, Button, Message } from "semantic-ui-react";
 
 import "./Parent.css";
 
 class Parent extends Component {
   renderPastTreatments = () => {
-    let past = [];
-    const firestore = getFirestore();
-    firestore
-      .collection("treatments")
-      .where("isCompleted", "==", false)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(doc => {
-          past.push(doc.data());
+    if (this.props.pastTreatments) {
+      if (this.props.pastTreatments.length !== 0) {
+        return this.props.pastTreatments.map(item => {
+          return <Segment key={item.id}>{item.childName}'s treatment</Segment>;
         });
-      });
+      } else {
+        return (
+          <Message info>Your childrens don't have any past treatments</Message>
+        );
+      }
+    }
+  };
+
+  renderCurrentTreatments = () => {
+    if (this.props.currentTreatments) {
+      if (this.props.currentTreatments.length !== 0) {
+        return this.props.currentTreatments.map(item => {
+          return <Segment key={item.id}>{item.childName}'s treatment</Segment>;
+        });
+      } else {
+        return (
+          <Message info>
+            Your childrens don't have any current treatments
+          </Message>
+        );
+      }
+    }
   };
 
   render() {
     return (
       <div className="page-container">
-        {this.props.parents ? (
+        {this.props.parents && this.props.parents.length !== 0 ? (
           <>
             <div className="header">
               <div>
@@ -45,14 +61,12 @@ class Parent extends Component {
               </div>
             </div>
 
-            <div style={{ paddingTop: "15px", paddingBottom: "50px" }}>
+            <div style={{ paddingTop: "15px", paddingBottom: "10px" }}>
               <div className="heading">
                 Your Childrens Current Treatments -{" "}
               </div>
               <div style={{ paddingTop: "15px" }}>
-                <Segment>
-                  Your childrens don't have any current treatments
-                </Segment>
+                {this.renderCurrentTreatments()}
               </div>
             </div>
 
@@ -63,7 +77,13 @@ class Parent extends Component {
               </div>
             </div>
             <div className="footer">
-              <Button fluid primary>
+              <Button
+                fluid
+                primary
+                onClick={() => {
+                  this.props.history.push("/chat");
+                }}
+              >
                 Get Help !!
               </Button>
             </div>
@@ -92,12 +112,26 @@ class Parent extends Component {
 }
 
 const mapStateToProps = state => ({
-  parents: state.firestore.ordered.parents
+  parents: state.firestore.ordered.parents,
+  pastTreatments: state.firestore.ordered.pastTreatments,
+  currentTreatments: state.firestore.ordered.currentTreatments
 });
 
 export default withFirestore(
   compose(
-    firestoreConnect([{ collection: "parents" }]), // or { collection: 'todos' }
+    firestoreConnect([
+      { collection: "parents" },
+      {
+        collection: "treatments",
+        where: [["isCompleted", "==", false]],
+        storeAs: "pastTreatments"
+      },
+      {
+        collection: "treatments",
+        where: [["isCompleted", "==", true]],
+        storeAs: "currentTreatments"
+      }
+    ]),
     connect(mapStateToProps)
   )(Parent)
 );
