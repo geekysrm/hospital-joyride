@@ -10,6 +10,11 @@ import chat from "../../assets/chat";
 
 import { Form, FormGroup, Label, Input } from "reactstrap";
 import { Button, Icon } from "semantic-ui-react";
+import { Select, DatePicker } from "antd";
+
+import moment from "moment";
+
+import { getFirestore } from "redux-firestore";
 
 class HelpChatbot extends Component {
   constructor(props) {
@@ -21,32 +26,139 @@ class HelpChatbot extends Component {
         childName: "",
         age: 0,
         gender: "",
-        bloodGroup: ""
+        bloodGroup: "",
+        symptoms: [],
+        medicalHistory: "",
+        ongoingTreatments: "",
+        appointmentDate: "2019-09-20",
+        appointmentTime: ""
       }
     };
   }
 
   renderInputs = inputs => {
     return inputs.map(input => {
-      return (
-        <FormGroup>
-          <Label>{input.label}</Label>
-          <Input
-            type={input.type}
-            name={input.value}
-            value={this.state.childInfo[input.value]}
-            onChange={event => {
-              this.setState({
-                childInfo: {
-                  ...this.state.childInfo,
-                  [event.target.name]: event.target.value
+      if (input.type === "select") {
+        return (
+          <div style={{ paddingBottom: "20px" }}>
+            <Select
+              mode="tags"
+              style={{ width: "250px" }}
+              tokenSeparators={[","]}
+              value={this.state.childInfo.symptoms}
+              onChange={value => {
+                this.setState({
+                  childInfo: {
+                    ...this.state.childInfo,
+                    symptoms: value
+                  }
+                });
+              }}
+            ></Select>
+          </div>
+        );
+      } else if (input.type === "date") {
+        return (
+          <div style={{ paddingBottom: "20px" }}>
+            <Label>{input.label}</Label>
+            <DatePicker
+              value={moment(this.state.childInfo.appointmentDate, "YYYY-MM-DD")}
+              onChange={(date, dateString) => {
+                this.setState({
+                  childInfo: {
+                    ...this.state.childInfo,
+                    appointmentDate: dateString
+                  }
+                });
+              }}
+            />
+          </div>
+        );
+      } else {
+        return (
+          <FormGroup>
+            <Label>{input.label}</Label>
+            <Input
+              type={input.type}
+              name={input.value}
+              value={this.state.childInfo[input.value]}
+              placeholder={input.placeholder && input.placeholder}
+              onChange={event => {
+                if (input.type === "number") {
+                  this.setState({
+                    childInfo: {
+                      ...this.state.childInfo,
+                      [event.target.name]: Number(event.target.value)
+                    }
+                  });
+                } else {
+                  this.setState({
+                    childInfo: {
+                      ...this.state.childInfo,
+                      [event.target.name]: event.target.value
+                    }
+                  });
                 }
-              });
-            }}
-          />
-        </FormGroup>
-      );
+              }}
+            />
+          </FormGroup>
+        );
+      }
     });
+  };
+
+  renderButtons = buttons => {
+    if (buttons) {
+      return buttons.map(button => {
+        return (
+          <Button
+            primary
+            onClick={async event => {
+              event.preventDefault();
+
+              if (button.label === "Book") {
+                console.log(this.state);
+
+                const firestore = getFirestore();
+
+                await firestore.collection("treatments").add({
+                  ...this.state.childInfo,
+                  assignedDoc: "s9OhzTJRhZJtebPKZeUN",
+                  isCompleted: false,
+                  isDiagnosed: false
+                });
+
+                this.setState({
+                  chatPointer: button.value,
+                  childInfo: {
+                    childName: "",
+                    age: 0,
+                    gender: "",
+                    bloodGroup: "",
+                    symptoms: [],
+                    medicalHistory: "",
+                    ongoingTreatments: "",
+                    appointmentDate: "2019-09-20",
+                    appointmentTime: ""
+                  }
+                });
+              } else {
+                this.setState({
+                  chatPointer: button.value
+                });
+              }
+            }}
+          >
+            <Button.Content>
+              {button.label} <span>&nbsp;&nbsp;</span>{" "}
+              <Icon name={button.icon} />
+            </Button.Content>
+          </Button>
+        );
+      });
+    } else {
+      return null;
+    }
   };
 
   renderMessages = () => {
@@ -68,9 +180,41 @@ class HelpChatbot extends Component {
                     <div className="option-bot" key={index}>
                       <div
                         onClick={() => {
-                          this.setState({
-                            chatPointer: option.value
-                          });
+                          if (option.value === "home") {
+                            this.setState({
+                              childInfo: {
+                                childName: "",
+                                age: 0,
+                                gender: "",
+                                bloodGroup: "",
+                                symptoms: [],
+                                medicalHistory: "",
+                                ongoingTreatments: "",
+                                appointmentDate: "2019-09-20",
+                                appointmentTime: ""
+                              }
+                            });
+                            this.props.history.push("/parent");
+                          } else if (option.value === "start") {
+                            this.setState({
+                              chatPointer: "start",
+                              childInfo: {
+                                childName: "",
+                                age: 0,
+                                gender: "",
+                                bloodGroup: "",
+                                symptoms: [],
+                                medicalHistory: "",
+                                ongoingTreatments: "",
+                                appointmentDate: "2019-09-20",
+                                appointmentTime: ""
+                              }
+                            });
+                          } else {
+                            this.setState({
+                              chatPointer: option.value
+                            });
+                          }
                         }}
                       >
                         {" "}
@@ -104,9 +248,41 @@ class HelpChatbot extends Component {
                     <div className="option" key={index + 99}>
                       <div
                         onClick={() => {
-                          this.setState({
-                            chatPointer: option.value
-                          });
+                          if (option.value === "home") {
+                            this.setState({
+                              childInfo: {
+                                childName: "",
+                                age: 0,
+                                gender: "",
+                                bloodGroup: "",
+                                symptoms: [],
+                                medicalHistory: "",
+                                ongoingTreatments: "",
+                                appointmentDate: "2019-09-20",
+                                appointmentTime: ""
+                              }
+                            });
+                            this.props.history.push("/parent");
+                          } else if (option.value === "start") {
+                            this.setState({
+                              chatPointer: "start",
+                              childInfo: {
+                                childName: "",
+                                age: 0,
+                                gender: "",
+                                bloodGroup: "",
+                                symptoms: [],
+                                medicalHistory: "",
+                                ongoingTreatments: "",
+                                appointmentDate: "2019-09-20",
+                                appointmentTime: ""
+                              }
+                            });
+                          } else {
+                            this.setState({
+                              chatPointer: option.value
+                            });
+                          }
                         }}
                       >
                         {" "}
@@ -122,22 +298,7 @@ class HelpChatbot extends Component {
             {fullMsg.user.inputs && (
               <Form style={{ marginTop: "20px", width: "250px" }}>
                 {this.renderInputs(fullMsg.user.inputs)}
-                <div>
-                  <Button
-                    animated
-                    primary
-                    onClick={() => {
-                      this.setState({
-                        chatPointer: "exit"
-                      });
-                    }}
-                  >
-                    <Button.Content visible>Next</Button.Content>
-                    <Button.Content hidden>
-                      <Icon name="arrow right" />
-                    </Button.Content>
-                  </Button>
-                </div>
+                <div>{this.renderButtons(fullMsg.user.buttons)}</div>
               </Form>
             )}
           </div>
