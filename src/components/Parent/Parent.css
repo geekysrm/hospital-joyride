@@ -48,6 +48,13 @@
   font-weight: 700;
 }
 
+.body-desc {
+  background-color: #f8f9fa;
+  width: 100%;
+  padding: 5px;
+  font-weight: 700;
+}
+
 .body-details {
   background-color: #f8f9fa;
   width: 59%;
@@ -56,13 +63,11 @@
 
 .footer {
   width: 100%;
-  padding: 15px;
   background-color: #f8f9fa;
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
+  margin-top: auto;
+  margin-bottom: 1rem;
 }
 
 .help-btn {
-  margin: auto
+  margin: auto;
 }

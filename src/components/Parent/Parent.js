@@ -8,7 +8,7 @@ import {
   withFirestore
 } from "react-redux-firebase";
 import { getFirestore } from "redux-firestore";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import { Icon, Placeholder, Segment, Button, Message } from "semantic-ui-react";
 
@@ -19,7 +19,17 @@ class Parent extends Component {
     if (this.props.pastTreatments) {
       if (this.props.pastTreatments.length !== 0) {
         return this.props.pastTreatments.map(item => {
-          return <Link to={`/details/${item.id}`} key={item.id} style={{ textDecoration: "none", color: "#212529"}}><Segment>{item.childName}'s treatment</Segment></Link>;
+          return (
+            <Link
+              to={`/details/${item.id}`}
+              key={item.id}
+              style={{ textDecoration: "none", color: "#212529" }}
+            >
+              <Segment style={{ marginBottom: "1rem" }}>
+                {item.childName}'s treatment
+              </Segment>
+            </Link>
+          );
         });
       } else {
         return (
@@ -33,7 +43,20 @@ class Parent extends Component {
     if (this.props.currentTreatments) {
       if (this.props.currentTreatments.length !== 0) {
         return this.props.currentTreatments.map(item => {
-          return <Link to={`/details/${item.id}`} key={item.id} style={{ textDecoration: "none", color: "#212529" }}><Segment key={item.id}>{item.childName}'s treatment</Segment></Link>;
+          return (
+            <Link
+              to={`/details/${item.id}`}
+              key={item.id}
+              style={{
+                textDecoration: "none",
+                color: "#212529"
+              }}
+            >
+              <Segment key={item.id} style={{ marginBottom: "1rem" }}>
+                {item.childName}'s treatment
+              </Segment>
+            </Link>
+          );
         });
       } else {
         return (

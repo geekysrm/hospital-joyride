@@ -12,9 +12,116 @@ import { Link } from "react-router-dom";
 import store from "../../store";
 
 import { Icon, Placeholder, Segment, Button, Message } from "semantic-ui-react";
+import { Icon as AntIcon, Table } from "antd";
 
 class TreatmentDetails extends Component {
+  state = {
+    doctor: null
+  };
+
+  componentDidUpdate() {
+    if (!this.state.doctor) {
+      if (this.props.treatment && this.props.treatment.assignedDoc) {
+        this.getDoc(this.props.treatment.assignedDoc);
+      }
+    }
+  }
+
+  getDoc = async id => {
+    const firestore = getFirestore();
+    let data = await firestore
+      .collection("doctors")
+      .doc(id)
+      .get();
+    data = data.data();
+
+    this.setState({
+      doctor: data
+    });
+  };
   render() {
+    const { doctor } = this.state;
+    const columns = [
+      {
+        title: "Tablet Name",
+        dataIndex: "tabletName",
+        key: "tabletName"
+      },
+      {
+        title: "Timing",
+        dataIndex: "timing",
+        key: "timing"
+      },
+      {
+        title: "Lunch",
+        dataIndex: "lunch",
+        key: "lunch",
+        render: x => {
+          if (x === 0) {
+            return (
+              <AntIcon
+                type="close-circle"
+                theme="twoTone"
+                twoToneColor="#eb2f96"
+              />
+            );
+          } else {
+            let a = [];
+            for (let i = 1; i <= x; i++) {
+              a.push(
+                <AntIcon
+                  type="check-circle"
+                  theme="twoTone"
+                  twoToneColor="#52c41a"
+                  key={i}
+                />
+              );
+            }
+
+            return a;
+          }
+        }
+      },
+      {
+        title: "Dinner",
+        dataIndex: "dinner",
+        key: "dinner",
+        render: x => {
+          if (x === 0) {
+            return (
+              <AntIcon
+                type="close-circle"
+                theme="twoTone"
+                twoToneColor="#eb2f96"
+              />
+            );
+          } else {
+            let a = [];
+            for (let i = 1; i <= x; i++) {
+              a.push(
+                <AntIcon
+                  type="check-circle"
+                  theme="twoTone"
+                  twoToneColor="#52c41a"
+                  key={i}
+                />
+              );
+            }
+
+            return a;
+          }
+        }
+      }
+    ];
+    const dataSource = [
+      {
+        key: "1",
+        tabletName: "Febrix Plus",
+        timing: "After Food",
+        lunch: 2,
+        dinner: 0
+      }
+    ];
     return (
       <>
         {this.props.treatment ? (
@@ -24,7 +131,10 @@ class TreatmentDetails extends Component {
                 <Icon name="user" circular size="big" />
               </div>
               <div style={{ paddingLeft: "30px", width: "100%" }}>
-                <div className="header-name">
+                <div
+                  className="header-name"
+                  style={{ textTransform: "capitalize" }}
+                >
                   {this.props.treatment.childName}
                 </div>
               </div>
@@ -34,7 +144,6 @@ class TreatmentDetails extends Component {
                 <div>Gender: </div>
                 <div>Age: </div>
                 <div>Blood Group:</div>
-                <div>Doctor Assigned: </div>
                 <div>Symptoms: </div>
                 {this.props.treatment.symptoms.map((s, index) => {
                   if (index === 0) {
@@ -42,27 +151,53 @@ class TreatmentDetails extends Component {
                   }
                   return <br key={index}></br>;
                 })}
+                {this.props.treatment.isDiagnosed ? <div>Disease: </div> : null}
               </div>
               <div className="body-details">
                 <div>{this.props.treatment.gender}</div>
                 <div>{this.props.treatment.age}</div>
-                <div>O+ve</div>
+                <div>{this.props.treatment.bloodGroup}</div>
                 <div>
-                  {this.props.treatment.assignedDoc.length === 0
-                    ? "We are searching!!"
-                    : this.props.treatment.assignedDoc}
+                  {this.props.treatment.assignedDoc
+                    ? null
+                    : "We are searching!!"}
                 </div>
                 {this.props.treatment.symptoms.map((symptom, index) => (
                   <div key={index} style={{ textTransform: "capitalize" }}>
                     {symptom}
                   </div>
                 ))}
+                {this.props.treatment.isDiagnosed ? (
+                  <div>{this.props.treatment.disease}</div>
+                ) : null}
               </div>
             </div>
           </>
-				) : null}
-				{this.props.doctor ? (
-					<div className="body">
+        ) : null}
+        {this.props.treatment && this.props.treatment.diet ? (
+          <div className="body">
+            <div className="body-desc">
+              <div>Medical History: </div>
+              <hr></hr>
+              <div style={{ fontWeight: "500" }}>
+                {this.props.treatment.medicalHistory}
+              </div>
+            </div>
+          </div>
+        ) : null}
+        {this.props.treatment && this.props.treatment.diet ? (
+          <div className="body">
+            <div className="body-desc">
+              <div>On Going Medical Condition: </div>
+              <hr></hr>
+              <div style={{ fontWeight: "500" }}>
+                {this.props.treatment.onGoingTreatment}
+              </div>
+            </div>
+          </div>
+        ) : null}
+        {doctor ? (
+          <div className="body">
             <div className="body-tag">
               <div>Doctor Assigned: </div>
               <div>Phone Number: </div>
@@ -72,15 +207,50 @@ class TreatmentDetails extends Component {
               <div>Specialization: </div>
             </div>
             <div className="body-details">
-              <div>{this.props.doctor.name}</div>
-              <div>{this.props.doctor.phone}</div>
-              <div>{this.props.doctor.email}</div>
-              <div>{this.props.doctor.hospital}</div>
-              <div>{this.props.doctor.qualification}</div>
-							<div>{this.props.doctor.specialization}</div>
+              <div>{doctor.name}</div>
+              <div>{doctor.phone}</div>
+              <div>{doctor.email}</div>
+              <div>{doctor.hospital}</div>
+              <div>{doctor.qualification}</div>
+              <div>{doctor.specialization}</div>
             </div>
-					</div>
-					) : null}				
+          </div>
+        ) : null}
+        {this.props.treatment &&
+        this.props.treatment.appointmentDate &&
+        this.props.treatment.appointmentTime ? (
+          <div className="body">
+            <div className="body-tag">
+              <div>Appointment Date: </div>
+              <div>Appointment Time: </div>
+            </div>
+            <div className="body-details">
+              <div>{this.props.treatment.appointmentDate}</div>
+              <div>{this.props.treatment.appointmentTime}</div>
+            </div>
+          </div>
+        ) : null}
+        {this.props.treatment && this.props.treatment.isDiagnosed ? (
+          <div className="body">
+            <Table
+              dataSource={dataSource}
+              columns={columns}
+              pagination={false}
+              style={{ width: "100%" }}
+            />
+          </div>
+        ) : null}
+        {this.props.treatment && this.props.treatment.diet ? (
+          <div className="body" style={{ marginBottom: "10px" }}>
+            <div className="body-desc" style={{ width: "100%" }}>
+              <div>Diet Description: </div>
+              <hr></hr>
+              <div style={{ fontWeight: "500" }}>
+                {this.props.treatment.diet}
+              </div>
+            </div>
+          </div>
+        ) : null}
       </>
     );
   }
@@ -89,8 +259,7 @@ class TreatmentDetails extends Component {
 const mapStateToProps = state => ({
   treatment: state.firestore.ordered.treatment
     ? state.firestore.ordered.treatment[0]
-		: null,
-	doctor: state.firestore.ordered.doctors ? state.firestore.ordered.doctors.filter(doctor => doctor.id === state.firestore.ordered.treatment.assignedDoc) : null
+    : null
 });
 
 export default withFirestore(
@@ -100,12 +269,7 @@ export default withFirestore(
         collection: "treatments",
         doc: props.match.params.id,
         storeAs: "treatment"
-			},
-			{
-				collection: "doctors",
-				// doc: props.treatment ? props.treatment.assignedDoc : null,
-				// storeAs: "doctor"
-			}
+      }
     ]),
     connect(mapStateToProps)
   )(TreatmentDetails)
