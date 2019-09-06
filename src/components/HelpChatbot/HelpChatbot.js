@@ -8,14 +8,46 @@ import { Badge } from "antd";
 
 import chat from "../../assets/chat";
 
+import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Icon } from "semantic-ui-react";
+
 class HelpChatbot extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      chatPointer: "start"
+      chatPointer: "start",
+      childInfo: {
+        childName: "",
+        age: 0,
+        gender: "",
+        bloodGroup: ""
+      }
     };
   }
+
+  renderInputs = inputs => {
+    return inputs.map(input => {
+      return (
+        <FormGroup>
+          <Label>{input.label}</Label>
+          <Input
+            type={input.type}
+            name={input.value}
+            value={this.state.childInfo[input.value]}
+            onChange={event => {
+              this.setState({
+                childInfo: {
+                  ...this.state.childInfo,
+                  [event.target.name]: event.target.value
+                }
+              });
+            }}
+          />
+        </FormGroup>
+      );
+    });
+  };
 
   renderMessages = () => {
     let msg = [];
@@ -31,9 +63,9 @@ class HelpChatbot extends Component {
             ></div>
             {fullMsg.bot.options && (
               <div>
-                {fullMsg.bot.options.map(option => {
+                {fullMsg.bot.options.map((option, index) => {
                   return (
-                    <div className="option-bot">
+                    <div className="option-bot" key={index}>
                       <div
                         onClick={() => {
                           this.setState({
@@ -64,11 +96,12 @@ class HelpChatbot extends Component {
             <div
               dangerouslySetInnerHTML={{ __html: fullMsg.user.message }}
             ></div>
+
             {fullMsg.user.options && (
               <div>
-                {fullMsg.user.options.map(option => {
+                {fullMsg.user.options.map((option, index) => {
                   return (
-                    <div className="option">
+                    <div className="option" key={index + 99}>
                       <div
                         onClick={() => {
                           this.setState({
@@ -84,6 +117,28 @@ class HelpChatbot extends Component {
                   );
                 })}
               </div>
+            )}
+
+            {fullMsg.user.inputs && (
+              <Form style={{ marginTop: "20px", width: "250px" }}>
+                {this.renderInputs(fullMsg.user.inputs)}
+                <div>
+                  <Button
+                    animated
+                    primary
+                    onClick={() => {
+                      this.setState({
+                        chatPointer: "exit"
+                      });
+                    }}
+                  >
+                    <Button.Content visible>Next</Button.Content>
+                    <Button.Content hidden>
+                      <Icon name="arrow right" />
+                    </Button.Content>
+                  </Button>
+                </div>
+              </Form>
             )}
           </div>
         </>
