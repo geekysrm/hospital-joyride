@@ -168,66 +168,63 @@ class HelpChatbot extends Component {
 
     if (fullMsg.bot) {
       const x = (
-        <>
-          <div className="msg-bot">
-            <div
-              dangerouslySetInnerHTML={{ __html: fullMsg.bot.message }}
-            ></div>
-            {fullMsg.bot.options && (
-              <div>
-                {fullMsg.bot.options.map((option, index) => {
-                  return (
-                    <div className="option-bot" key={index}>
-                      <div
-                        onClick={() => {
-                          if (option.value === "home") {
-                            this.setState({
-                              childInfo: {
-                                childName: "",
-                                age: 0,
-                                gender: "",
-                                bloodGroup: "",
-                                symptoms: [],
-                                medicalHistory: "",
-                                ongoingTreatments: "",
-                                appointmentDate: "2019-09-20",
-                                appointmentTime: ""
-                              }
-                            });
-                            this.props.history.push("/parent");
-                          } else if (option.value === "start") {
-                            this.setState({
-                              chatPointer: "start",
-                              childInfo: {
-                                childName: "",
-                                age: 0,
-                                gender: "",
-                                bloodGroup: "",
-                                symptoms: [],
-                                medicalHistory: "",
-                                ongoingTreatments: "",
-                                appointmentDate: "2019-09-20",
-                                appointmentTime: ""
-                              }
-                            });
-                          } else {
-                            this.setState({
-                              chatPointer: option.value
-                            });
-                          }
-                        }}
-                      >
-                        {" "}
-                        <Badge status="processing" />
-                        {option.label}
-                      </div>
+        <div className="msg-bot" key={1024}>
+          <div dangerouslySetInnerHTML={{ __html: fullMsg.bot.message }}></div>
+          {fullMsg.bot.options && (
+            <div>
+              {fullMsg.bot.options.map((option, index) => {
+                console.log(index);
+                return (
+                  <div className="option-bot" key={index}>
+                    <div
+                      onClick={() => {
+                        if (option.value === "home") {
+                          this.setState({
+                            childInfo: {
+                              childName: "",
+                              age: 0,
+                              gender: "",
+                              bloodGroup: "",
+                              symptoms: [],
+                              medicalHistory: "",
+                              ongoingTreatments: "",
+                              appointmentDate: "2019-09-20",
+                              appointmentTime: ""
+                            }
+                          });
+                          this.props.history.push("/parent");
+                        } else if (option.value === "start") {
+                          this.setState({
+                            chatPointer: "start",
+                            childInfo: {
+                              childName: "",
+                              age: 0,
+                              gender: "",
+                              bloodGroup: "",
+                              symptoms: [],
+                              medicalHistory: "",
+                              ongoingTreatments: "",
+                              appointmentDate: "2019-09-20",
+                              appointmentTime: ""
+                            }
+                          });
+                        } else {
+                          this.setState({
+                            chatPointer: option.value
+                          });
+                        }
+                      }}
+                    >
+                      {" "}
+                      <Badge status="processing" />
+                      {option.label}
                     </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       );
 
       msg.push(x);
@@ -235,74 +232,70 @@ class HelpChatbot extends Component {
 
     if (fullMsg.user) {
       const x = (
-        <>
-          <div className="msg-user">
-            <div
-              dangerouslySetInnerHTML={{ __html: fullMsg.user.message }}
-            ></div>
+        <div className="msg-user" key={1023}>
+          <div dangerouslySetInnerHTML={{ __html: fullMsg.user.message }}></div>
 
-            {fullMsg.user.options && (
-              <div>
-                {fullMsg.user.options.map((option, index) => {
-                  return (
-                    <div className="option" key={index + 99}>
-                      <div
-                        onClick={() => {
-                          if (option.value === "home") {
-                            this.setState({
-                              childInfo: {
-                                childName: "",
-                                age: 0,
-                                gender: "",
-                                bloodGroup: "",
-                                symptoms: [],
-                                medicalHistory: "",
-                                ongoingTreatments: "",
-                                appointmentDate: "2019-09-20",
-                                appointmentTime: ""
-                              }
-                            });
-                            this.props.history.push("/parent");
-                          } else if (option.value === "start") {
-                            this.setState({
-                              chatPointer: "start",
-                              childInfo: {
-                                childName: "",
-                                age: 0,
-                                gender: "",
-                                bloodGroup: "",
-                                symptoms: [],
-                                medicalHistory: "",
-                                ongoingTreatments: "",
-                                appointmentDate: "2019-09-20",
-                                appointmentTime: ""
-                              }
-                            });
-                          } else {
-                            this.setState({
-                              chatPointer: option.value
-                            });
-                          }
-                        }}
-                      >
-                        {" "}
-                        <Badge status="processing" />
-                        {option.label}
-                      </div>
+          {fullMsg.user.options && (
+            <div>
+              {fullMsg.user.options.map((option, index) => {
+                return (
+                  <div className="option" key={index}>
+                    <div
+                      onClick={() => {
+                        if (option.value === "home") {
+                          this.setState({
+                            childInfo: {
+                              childName: "",
+                              age: 0,
+                              gender: "",
+                              bloodGroup: "",
+                              symptoms: [],
+                              medicalHistory: "",
+                              ongoingTreatments: "",
+                              appointmentDate: "2019-09-20",
+                              appointmentTime: ""
+                            }
+                          });
+                          this.props.history.push("/parent");
+                        } else if (option.value === "start") {
+                          this.setState({
+                            chatPointer: "start",
+                            childInfo: {
+                              childName: "",
+                              age: 0,
+                              gender: "",
+                              bloodGroup: "",
+                              symptoms: [],
+                              medicalHistory: "",
+                              ongoingTreatments: "",
+                              appointmentDate: "2019-09-20",
+                              appointmentTime: ""
+                            }
+                          });
+                        } else {
+                          this.setState({
+                            chatPointer: option.value
+                          });
+                        }
+                      }}
+                    >
+                      {" "}
+                      <Badge status="processing" />
+                      {option.label}
                     </div>
-                  );
-                })}
-              </div>
-            )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
-            {fullMsg.user.inputs && (
-              <Form style={{ marginTop: "20px", width: "250px" }}>
-                {this.renderInputs(fullMsg.user.inputs)}
-                <div>{this.renderButtons(fullMsg.user.buttons)}</div>
-              </Form>
-            )}
-          </div>
-        </>
+          {fullMsg.user.inputs && (
+            <Form style={{ marginTop: "20px", width: "250px" }}>
+              {this.renderInputs(fullMsg.user.inputs)}
+              <div>{this.renderButtons(fullMsg.user.buttons)}</div>
+            </Form>
+          )}
+        </div>
       );
 
       msg.push(x);
