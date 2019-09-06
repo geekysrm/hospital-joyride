@@ -19,10 +19,28 @@ export default {
   },
   form1: {
     bot: {
-      message: "Hello"
+      message: "Please provide details about your child"
     },
     user: {
-      message: "form1"
+      message: "Fill Form",
+      inputs: [
+        {
+          label: "name",
+          type: "string"
+        },
+        {
+          label: "age",
+          type: "number"
+        },
+        {
+          label: "gender",
+          type: "string"
+        },
+        {
+          label: "Blood Group",
+          type: "string"
+        }
+      ]
     }
   },
   exit: {
