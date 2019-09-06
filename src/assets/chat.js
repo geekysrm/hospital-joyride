@@ -19,10 +19,32 @@ export default {
   },
   form1: {
     bot: {
-      message: "Hello"
+      message: "Can you please provide details of your child."
     },
     user: {
-      message: "form1"
+      message: "Please fill this form : ",
+      inputs: [
+        {
+          label: "Child's Name",
+          value: "childName",
+          type: "text"
+        },
+        {
+          label: "Child's Age",
+          value: "age",
+          type: "number"
+        },
+        {
+          label: "Child's gender",
+          value: "gender",
+          type: "text"
+        },
+        {
+          label: "Child's Blood Group",
+          value: "bloodGroup",
+          type: "text"
+        }
+      ]
     }
   },
   exit: {

@@ -13,6 +13,7 @@ import HelpChatbot from "./components/HelpChatbot/HelpChatbot";
 import Navbar from "./components/Navbar/Navbar";
 
 import "semantic-ui-css/semantic.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
