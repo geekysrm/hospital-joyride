@@ -27,10 +27,10 @@ class HelpChatbot extends Component {
   }
 
   renderInputs = inputs => {
-    return inputs.map(input => {
+    return inputs.map((input, index) => {
       return (
-        <FormGroup>
-          <Label>{input.label}</Label>
+        <FormGroup key={index}>
+          <Label>{input.label}:</Label>
           <Input
             type={input.type}
             name={input.value}
@@ -56,14 +56,14 @@ class HelpChatbot extends Component {
 
     if (fullMsg.bot) {
       const x = (
-        <>
-          <div className="msg-bot">
+          <div className="msg-bot" key={1024}>
             <div
               dangerouslySetInnerHTML={{ __html: fullMsg.bot.message }}
             ></div>
             {fullMsg.bot.options && (
               <div>
                 {fullMsg.bot.options.map((option, index) => {
+                  console.log(index);
                   return (
                     <div className="option-bot" key={index}>
                       <div
@@ -83,7 +83,6 @@ class HelpChatbot extends Component {
               </div>
             )}
           </div>
-        </>
       );
 
       msg.push(x);
@@ -91,8 +90,7 @@ class HelpChatbot extends Component {
 
     if (fullMsg.user) {
       const x = (
-        <>
-          <div className="msg-user">
+          <div className="msg-user" key={1023}>
             <div
               dangerouslySetInnerHTML={{ __html: fullMsg.user.message }}
             ></div>
@@ -101,7 +99,7 @@ class HelpChatbot extends Component {
               <div>
                 {fullMsg.user.options.map((option, index) => {
                   return (
-                    <div className="option" key={index + 99}>
+                    <div className="option" key={index}>
                       <div
                         onClick={() => {
                           this.setState({
@@ -141,7 +139,6 @@ class HelpChatbot extends Component {
               </Form>
             )}
           </div>
-        </>
       );
 
       msg.push(x);

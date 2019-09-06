@@ -19,7 +19,7 @@ export default {
   },
   form1: {
     bot: {
-      message: "Can you please provide details of your child."
+      message: "Please provide details of your child."
     },
     user: {
       message: "Please fill this form : ",
