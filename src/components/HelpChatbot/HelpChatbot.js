@@ -31,9 +31,9 @@ class HelpChatbot extends Component {
             ></div>
             {fullMsg.bot.options && (
               <div>
-                {fullMsg.bot.options.map(option => {
+                {fullMsg.bot.options.map((option, index) => {
                   return (
-                    <div className="option-bot">
+                    <div className="option-bot" key={index}>
                       <div
                         onClick={() => {
                           this.setState({
@@ -66,9 +66,9 @@ class HelpChatbot extends Component {
             ></div>
             {fullMsg.user.options && (
               <div>
-                {fullMsg.user.options.map(option => {
+                {fullMsg.user.options.map((option, index) => {
                   return (
-                    <div className="option">
+                    <div className="option" key={index + 99}>
                       <div
                         onClick={() => {
                           this.setState({

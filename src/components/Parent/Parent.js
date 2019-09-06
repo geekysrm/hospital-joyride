@@ -83,6 +83,7 @@ class Parent extends Component {
                 onClick={() => {
                   this.props.history.push("/chat");
                 }}
+                className="help-btn"
               >
                 Get Help !!
               </Button>
@@ -123,12 +124,12 @@ export default withFirestore(
       { collection: "parents" },
       {
         collection: "treatments",
-        where: [["isCompleted", "==", false]],
+        where: [["isCompleted", "==", true]],
         storeAs: "pastTreatments"
       },
       {
         collection: "treatments",
-        where: [["isCompleted", "==", true]],
+        where: [["isCompleted", "==", false]],
         storeAs: "currentTreatments"
       }
     ]),
