@@ -3,14 +3,11 @@ import React, { Component } from "react";
 import "./HelpChatbot.css";
 import chatBotImage from "../../assets/chat-bot.jpg";
 
-import { Image } from "semantic-ui-react";
-import { Badge } from "antd";
+import { Image, Button, Icon } from "semantic-ui-react";
+import { Badge, Select, DatePicker } from "antd";
+import { Form, FormGroup, Label, Input } from "reactstrap";
 
 import chat from "../../assets/chat";
-
-import { Form, FormGroup, Label, Input } from "reactstrap";
-import { Button, Icon } from "semantic-ui-react";
-import { Select, DatePicker } from "antd";
 
 import moment from "moment";
 

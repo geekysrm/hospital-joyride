@@ -68,3 +68,6 @@
   background-color: #eee;
   color: #1b8ffc;
 }
+.option:hover {
+  cursor: pointer;
+}
