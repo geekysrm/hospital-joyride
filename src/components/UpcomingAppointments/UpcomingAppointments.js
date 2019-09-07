@@ -20,7 +20,7 @@ import {
   Form,
   Input
 } from "semantic-ui-react";
-import { Icon as AntIcon, Table } from "antd";
+import { Icon as AntIcon, Table, Switch } from "antd";
 
 class UpcomingAppointments extends Component {
   constructor(props) {
@@ -129,50 +129,60 @@ class UpcomingAppointments extends Component {
               });
             }}
           />
-          <Input
-            style={{ marginTop: "10px", marginLeft: "1rem" }}
-            placeholder="During Lunch?"
-            name="lunch"
-            value={this.state.meds[i] ? this.state.meds[i].lunch : null}
-            onChange={e => {
-              const newMeds = this.state.meds.map((med, index) => {
-                if (index === i) {
-                  return {
-                    ...med,
-                    lunch: e.target.value
-                  };
-                } else {
-                  return med;
-                }
-              });
-
-              this.setState({
-                meds: newMeds
-              });
+          <div
+            style={{
+              marginTop: "10px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around"
             }}
-          />
-          <Input
-            style={{ marginTop: "10px" }}
-            placeholder="During Dinner?"
-            name="dinner"
-            value={this.state.meds[i] ? this.state.meds[i].dinner : null}
-            onChange={e => {
-              const newMeds = this.state.meds.map((med, index) => {
-                if (index === i) {
-                  return {
-                    ...med,
-                    dinner: e.target.value
-                  };
-                } else {
-                  return med;
-                }
-              });
+          >
+            <div>
+              <label style={{ paddingRight: "1rem" }}>Lunch ?</label>
+              <Switch
+                onChange={e => {
+                  console.log(e);
+                  const newMeds = this.state.meds.map((med, index) => {
+                    if (index === i) {
+                      return {
+                        ...med,
+                        lunch: e ? "true" : "false"
+                      };
+                    } else {
+                      return med;
+                    }
+                  });
 
-              this.setState({
-                meds: newMeds
-              });
-            }}
-          />
+                  this.setState({
+                    meds: newMeds
+                  });
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ paddingRight: "1rem" }}>Dinner ?</label>
+              <Switch
+                onChange={e => {
+                  console.log(e);
+                  const newMeds = this.state.meds.map((med, index) => {
+                    if (index === i) {
+                      return {
+                        ...med,
+                        dinner: e ? "true" : "false"
+                      };
+                    } else {
+                      return med;
+                    }
+                  });
+
+                  this.setState({
+                    meds: newMeds
+                  });
+                }}
+              />
+            </div>
+          </div>
         </Form.Field>
       );
     }
@@ -370,7 +380,7 @@ class UpcomingAppointments extends Component {
             </div>
           </div>
         ) : null}
-        {this.props.treatment && this.props.treatment.isDiagnosed ? (
+        {this.props.treatment && this.props.treatment.meds ? (
           <div className="body">
             <Table
               dataSource={dataSource}
@@ -403,101 +413,138 @@ class UpcomingAppointments extends Component {
           <div className="header-name">Enter your diagnosis :</div>
         ) : null}
 
-        <Form>
-          {this.props.treatment && !this.props.treatment.disease && (
-            <Form.Field>
-              <label style={{ padding: "0.5rem", fontSize: "18px" }}>
-                Disease
-              </label>
-              <Input
-                placeholder="Disease"
-                name="disease"
-                value={this.state.disease}
-                onChange={this.handleChange}
-              />
-            </Form.Field>
-          )}
-          {this.props.treatment && !this.props.treatment.diet && (
-            <Form.Field>
-              <label style={{ padding: "0.5rem", fontSize: "18px" }}>
-                Preferred Diet
-              </label>
-              <Input
-                placeholder="Diet"
-                name="diet"
-                value={this.state.diet}
-                onChange={this.handleChange}
-              />
-            </Form.Field>
-          )}
+        {this.props.treatment && (
+          <>
+            <Form>
+              {this.props.treatment && !this.props.treatment.disease && (
+                <Form.Field>
+                  <label style={{ padding: "0.5rem", fontSize: "18px" }}>
+                    Disease
+                  </label>
+                  <Input
+                    placeholder="Disease"
+                    name="disease"
+                    value={this.state.disease}
+                    onChange={this.handleChange}
+                  />
+                </Form.Field>
+              )}
+              {this.props.treatment && !this.props.treatment.diet && (
+                <Form.Field>
+                  <label style={{ padding: "0.5rem", fontSize: "18px" }}>
+                    Preferred Diet
+                  </label>
+                  <Input
+                    placeholder="Diet"
+                    name="diet"
+                    value={this.state.diet}
+                    onChange={this.handleChange}
+                  />
+                </Form.Field>
+              )}
 
-          {this.props.treatment && this.props.treatment.meds ? (
-            this.props.treatment.meds.length === 0 && (
-              <Form.Field>
-                <label style={{ padding: "0.5rem", fontSize: "18px" }}>
-                  Enter Medicines :
+              {this.props.treatment && this.props.treatment.meds ? (
+                this.props.treatment.meds.length === 0 && (
+                  <Form.Field>
+                    <label style={{ padding: "0.5rem", fontSize: "18px" }}>
+                      Enter Medicines :
+                      <Button
+                        icon
+                        onClick={this.addNewMedicine}
+                        style={{ margin: "0.5rem" }}
+                      >
+                        <Icon name="add" />
+                      </Button>
+                    </label>
+                  </Form.Field>
+                )
+              ) : (
+                <Form.Field>
+                  <label style={{ padding: "0.5rem", fontSize: "18px" }}>
+                    Enter Medicines :
+                    <Button
+                      icon
+                      onClick={this.addNewMedicine}
+                      style={{ margin: "0.5rem" }}
+                    >
+                      <Icon name="add" />
+                    </Button>
+                  </label>
+                </Form.Field>
+              )}
+              {<div>{this.renderMedicineForm()}</div>}
+
+              {(this.props.treatment && !this.props.treatment.disease) ||
+              (this.props.treatment && !this.props.treatment.diet) ||
+              (this.props.treatment && !this.props.treatment.meds) ||
+              (this.props.treatment &&
+                this.props.treatment.meds &&
+                this.props.treatment.meds.length === 0) ? (
+                <div style={{ padding: "1rem" }}>
                   <Button
-                    icon
-                    onClick={this.addNewMedicine}
-                    style={{ margin: "0.5rem" }}
+                    primary
+                    onClick={() => {
+                      const meds = this.state.meds.map(med => {
+                        let str = `${med.name},${med.number},${med.timing},${
+                          med.lunch ? "true" : "false"
+                        },${med.dinner ? "true" : "false"}`;
+
+                        return str;
+                      });
+
+                      const firestore = getFirestore();
+
+                      firestore
+                        .collection("treatments")
+                        .doc(this.props.match.params.id)
+                        .update({
+                          disease: this.state.disease,
+                          diet: this.state.diet,
+                          meds,
+                          isDiagnosed: true
+                        });
+
+                      this.props.history.push("/doctors");
+                    }}
                   >
-                    <Icon name="add" />
+                    Submit
                   </Button>
-                </label>
-              </Form.Field>
-            )
-          ) : (
-            <Form.Field>
-              <label style={{ padding: "0.5rem", fontSize: "18px" }}>
-                Enter Medicines :
+                </div>
+              ) : null}
+            </Form>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%"
+              }}
+            >
+              <div>
                 <Button
                   icon
-                  onClick={this.addNewMedicine}
-                  style={{ margin: "0.5rem" }}
+                  labelPosition="right"
+                  positive
+                  onClick={() => {
+                    const firestore = getFirestore();
+
+                    firestore
+                      .collection("treatments")
+                      .doc(this.props.match.params.id)
+                      .update({
+                        isCompleted: true
+                      });
+
+                    this.props.history.push("/doctors");
+                  }}
                 >
-                  <Icon name="add" />
+                  Mark as Completed
+                  <Icon name="check" />
                 </Button>
-              </label>
-            </Form.Field>
-          )}
-          {<div>{this.renderMedicineForm()}</div>}
-
-          {(this.props.treatment && !this.props.treatment.disease) ||
-          (this.props.treatment && !this.props.treatment.diet) ||
-          (this.props.treatment && !this.props.treatment.meds) ||
-          (this.props.treatment &&
-            this.props.treatment.meds &&
-            this.props.treatment.meds.length === 0) ? (
-            <div style={{ padding: "1rem" }}>
-              <Button
-                primary
-                onClick={async () => {
-                  const meds = this.state.meds.map(med => {
-                    let str = `${med.name},${med.number},${med.timing},${med.lunch},${med.dinner}`;
-
-                    return str;
-                  });
-
-                  const firestore = getFirestore();
-
-                  await firestore
-                    .collection("treatments")
-                    .doc(this.props.match.params.id)
-                    .update({
-                      disease: this.state.disease,
-                      diet: this.state.diet,
-                      meds,
-                      isDiagnosed: true
-                    });
-
-                  this.props.history.push("/doctors");
-                }}
-              >
-                Submit
-              </Button>
+              </div>
             </div>
-          ) : null}
-        </Form>
+          </>
+        )}
       </div>
     );
   }
