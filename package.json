@@ -17,7 +17,8 @@
     "redux-firestore": "^0.8.0",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.0"
+    "semantic-ui-react": "^0.88.0",
+    "speak-tts": "^2.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

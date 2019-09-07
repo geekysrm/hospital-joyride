@@ -117,7 +117,6 @@ class TreatmentDetails extends Component {
     if (this.props.treatment && this.props.treatment.meds) {
       dataSource = this.props.treatment.meds.map((med, index) => {
         med = med.split(",");
-        console.log(med);
         return {
           key: index + 1,
           tabletName: med[0],
@@ -257,6 +256,32 @@ class TreatmentDetails extends Component {
             </div>
           </div>
         ) : null}
+
+        {this.props.treatment && !this.props.treatment.isCompleted && (
+          <div className="body">
+            <div
+              className="body-desc"
+              style={{
+                width: "100%",
+                padding: "1.5rem",
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
+              <Button
+                icon
+                labelPosition="right"
+                positive
+                onClick={() => {
+                  this.props.history.push(`/story/${this.props.treatment.id}`);
+                }}
+              >
+                Start Adventure
+                <Icon name="right arrow" />
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

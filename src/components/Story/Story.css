@@ -1,0 +1,43 @@
+.story-container {
+  width: 100%;
+  height: 85vh;
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  box-shadow: 0 1.5rem 2rem #eee;
+  position: relative;
+}
+
+.btn-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+
+.comic-img-container {
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.comic-img {
+  height: 60vh;
+  object-fit: contain;
+}
+
+.comic-text {
+  font-size: 13px;
+  font-family: "Francois One", sans-serif;
+  width: 300px;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  filter: blur(0.75px);
+}

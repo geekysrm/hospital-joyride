@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 
 import store from "./store";
 import Doctor from "./components/Doctor/Doctor";
-import Child from "./components/Child/Child";
+import Story from "./components/Story/Story";
 import Parent from "./components/Parent/Parent";
 import Landing from "./components/Landing/Landing";
 import HelpChatbot from "./components/HelpChatbot/HelpChatbot";
@@ -25,7 +25,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Landing}></Route>
             <Route exact path="/doctors" component={Doctor}></Route>
-            <Route exact path="/child" component={Child}></Route>
+            <Route exact path="/story/:id" component={Story}></Route>
             <Route exact path="/parent" component={Parent}></Route>
             <Route exact path="/chat" component={HelpChatbot}></Route>
             <Route
