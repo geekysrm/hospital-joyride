@@ -34,7 +34,8 @@ class Story extends Component {
 
     this.state = {
       showModal: true,
-      storyPointer: null
+      storyPointer: null,
+      mute: false
     };
   }
 
@@ -69,9 +70,11 @@ class Story extends Component {
         comicData.text.split("#")[1]
       ].join(", ")}.`;
 
-      speech.speak({
-        text: newText
-      });
+      if (!this.state.mute) {
+        speech.speak({
+          text: newText
+        });
+      }
 
       return (
         <div>
@@ -88,9 +91,11 @@ class Story extends Component {
         </div>
       );
     } else {
-      speech.speak({
-        text: comicData.text
-      });
+      if (!this.state.mute) {
+        speech.speak({
+          text: comicData.text
+        });
+      }
 
       return (
         <div>
@@ -145,6 +150,34 @@ class Story extends Component {
     );
   };
 
+  renderMute = () => {
+    return (
+      <div className="mute-icon-container">
+        {this.state.mute ? (
+          <Icon
+            name="volume off"
+            size="big"
+            onClick={() => {
+              this.setState({
+                mute: false
+              });
+            }}
+          />
+        ) : (
+          <Icon
+            name="volume up"
+            size="big"
+            onClick={() => {
+              this.setState({
+                mute: true
+              });
+            }}
+          />
+        )}
+      </div>
+    );
+  };
+
   render() {
     return (
       <div>
@@ -183,6 +216,7 @@ class Story extends Component {
         {!this.state.showModal && this.state.storyPointer && (
           <div className="story-container">
             {this.renderComic()}
+            {this.renderMute()}
             {this.renderButtons()}
           </div>
         )}

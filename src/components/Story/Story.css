@@ -41,3 +41,9 @@
   background-color: #fff;
   filter: blur(0.75px);
 }
+
+.mute-icon-container {
+  position: fixed;
+  bottom: 40px;
+  left: 50px;
+}
