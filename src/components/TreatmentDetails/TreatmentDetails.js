@@ -113,17 +113,23 @@ class TreatmentDetails extends Component {
         }
       }
     ];
-    const dataSource = [
-      {
-        key: "1",
-        tabletName: "Febrix Plus",
-        timing: "After Food",
-        lunch: 2,
-        dinner: 0
-      }
-    ];
+    let dataSource;
+    if (this.props.treatment && this.props.treatment.meds) {
+      dataSource = this.props.treatment.meds.map((med, index) => {
+        med = med.split(",");
+        console.log(med);
+        return {
+          key: index + 1,
+          tabletName: med[0],
+          timing: med[2],
+          lunch: med[3] === "true" ? med[1] : 0,
+          dinner: med[4] === "true" ? med[1] : 0
+        };
+      });
+    }
+
     return (
-      <>
+      <div style={{ marginBottom: "1rem" }}>
         {this.props.treatment ? (
           <>
             <div className="header">
@@ -174,7 +180,7 @@ class TreatmentDetails extends Component {
             </div>
           </>
         ) : null}
-        {this.props.treatment && this.props.treatment.diet ? (
+        {this.props.treatment && this.props.treatment.medicalHistory ? (
           <div className="body">
             <div className="body-desc">
               <div>Medical History: </div>
@@ -185,13 +191,13 @@ class TreatmentDetails extends Component {
             </div>
           </div>
         ) : null}
-        {this.props.treatment && this.props.treatment.diet ? (
+        {this.props.treatment && this.props.treatment.ongoingTreatments ? (
           <div className="body">
             <div className="body-desc">
               <div>On Going Medical Condition: </div>
               <hr></hr>
               <div style={{ fontWeight: "500" }}>
-                {this.props.treatment.onGoingTreatment}
+                {this.props.treatment.ongoingTreatments}
               </div>
             </div>
           </div>
@@ -241,7 +247,7 @@ class TreatmentDetails extends Component {
           </div>
         ) : null}
         {this.props.treatment && this.props.treatment.diet ? (
-          <div className="body" style={{ marginBottom: "10px" }}>
+          <div className="body">
             <div className="body-desc" style={{ width: "100%" }}>
               <div>Diet Description: </div>
               <hr></hr>
@@ -251,7 +257,7 @@ class TreatmentDetails extends Component {
             </div>
           </div>
         ) : null}
-      </>
+      </div>
     );
   }
 }

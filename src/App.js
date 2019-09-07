@@ -11,7 +11,7 @@ import Landing from "./components/Landing/Landing";
 import HelpChatbot from "./components/HelpChatbot/HelpChatbot";
 import Navbar from "./components/Navbar/Navbar";
 import TreatmentDetails from "./components/TreatmentDetails/TreatmentDetails";
-
+import UpcomingAppointments from "./components/UpcomingAppointments/UpcomingAppointments";
 
 import "semantic-ui-css/semantic.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -32,6 +32,13 @@ function App() {
               exact
               path="/details/:id"
               render={props => <TreatmentDetails {...props} isAuthed={true} />}
+            ></Route>
+            <Route
+              exact
+              path="/appointment-details/:id"
+              render={props => (
+                <UpcomingAppointments {...props} isAuthed={true} />
+              )}
             ></Route>
           </Switch>
         </div>

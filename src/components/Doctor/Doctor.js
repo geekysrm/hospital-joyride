@@ -8,13 +8,15 @@ import {
   withFirestore
 } from "react-redux-firebase";
 import { getFirestore } from "redux-firestore";
-import { Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Icon, Message, Segment } from "semantic-ui-react";
 import { Descriptions } from "antd";
 
 class Doctor extends Component {
   render() {
-    const { doctors } = this.props;
+    const { doctors, upcomingAppointments } = this.props;
     console.log(doctors);
+    console.log(upcomingAppointments);
     return (
       <div>
         {doctors ? (
@@ -49,37 +51,47 @@ class Doctor extends Component {
         ) : (
           <div>Loading...</div>
         )}
-        {/* <div
-          onClick={() => {
-            const firestore = getFirestore();
-            // firestore.collection("doctors").add(doctors[0]);
-            // firestore
-            //   .collection("doctors")
-            //   .doc(doctors[0].id)
-            //   .update({
-            //     name: "sai",
-            //     hospital: "amiya"
-            //   });
-            // firestore
-            //   .collection("doctors")
-            //   .doc(doctors[1].id)
-            //   .delete();
-          }}
-        >
-          Change !!
-        </div> */}
+        <div style={{ paddingTop: "15px", paddingBottom: "10px" }}>
+          <div className="heading">Your Upcoming Appointments - </div>
+          {upcomingAppointments && upcomingAppointments.length ? (
+            upcomingAppointments.map(appointment => {
+              return (
+                <Link
+                  to={`/appointment-details/${appointment.id}`}
+                  key={appointment.id}
+                  style={{ textDecoration: "none", color: "#212529" }}
+                >
+                  <Segment style={{ marginBottom: "1rem" }}>
+                    {appointment.childName}'s treatment
+                  </Segment>
+                </Link>
+              );
+            })
+          ) : (
+            <Message info>You do not have any upcoming appointments.</Message>
+          )}
+          <div style={{ paddingTop: "15px" }}></div>
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  doctors: state.firestore.ordered.doctors
+  doctors: state.firestore.ordered.doctors,
+  upcomingAppointments: state.firestore.ordered.upcomingAppointments
 });
 
 export default withFirestore(
   compose(
-    firestoreConnect([{ collection: "doctors" }]), // or { collection: 'todos' }
+    firestoreConnect([
+      { collection: "doctors" },
+      {
+        collection: "treatments",
+        where: [["isCompleted", "==", false]],
+        storeAs: "upcomingAppointments"
+      }
+    ]),
     connect(mapStateToProps)
   )(Doctor)
 );
