@@ -62,7 +62,8 @@ class UpcomingAppointments extends Component {
     let medicines = [];
     for (let i = 0; i < this.state.numberOfMeds; i++) {
       medicines.push(
-        <Form.Field inline>
+        <Form.Field inline style={{ marginTop: "10px" }}>
+          <h3 style={{ marginBottom: "10px" }}>Medicine {i + 1}</h3>
           <Input
             placeholder="Medicine Name"
             name="name"
@@ -86,6 +87,7 @@ class UpcomingAppointments extends Component {
           />
           <Input
             placeholder="Dosage per intake"
+            style={{ marginLeft: "1rem" }}
             name="number"
             value={this.state.meds[i] ? this.state.meds[i].number : null}
             onChange={e => {
@@ -106,6 +108,7 @@ class UpcomingAppointments extends Component {
             }}
           />
           <Input
+            style={{ marginTop: "10px" }}
             placeholder="Timing"
             name="timing"
             value={this.state.meds[i] ? this.state.meds[i].timing : null}
@@ -127,6 +130,7 @@ class UpcomingAppointments extends Component {
             }}
           />
           <Input
+            style={{ marginTop: "10px", marginLeft: "1rem" }}
             placeholder="During Lunch?"
             name="lunch"
             value={this.state.meds[i] ? this.state.meds[i].lunch : null}
@@ -148,6 +152,7 @@ class UpcomingAppointments extends Component {
             }}
           />
           <Input
+            style={{ marginTop: "10px" }}
             placeholder="During Dinner?"
             name="dinner"
             value={this.state.meds[i] ? this.state.meds[i].dinner : null}
