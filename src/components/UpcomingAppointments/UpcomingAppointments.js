@@ -64,71 +64,93 @@ class UpcomingAppointments extends Component {
       medicines.push(
         <Form.Field inline style={{ marginTop: "10px" }}>
           <h3 style={{ marginBottom: "10px" }}>Medicine {i + 1}</h3>
-          <Input
-            placeholder="Medicine Name"
-            name="name"
-            value={this.state.meds[i] ? this.state.meds[i].name : null}
-            onChange={e => {
-              const newMeds = this.state.meds.map((med, index) => {
-                if (index === i) {
-                  return {
-                    ...med,
-                    name: e.target.value
-                  };
-                } else {
-                  return med;
-                }
-              });
-
-              this.setState({
-                meds: newMeds
-              });
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              flexWrap: "wrap"
             }}
-          />
-          <Input
-            placeholder="Dosage per intake"
-            style={{ marginLeft: "1rem" }}
-            name="number"
-            value={this.state.meds[i] ? this.state.meds[i].number : null}
-            onChange={e => {
-              const newMeds = this.state.meds.map((med, index) => {
-                if (index === i) {
-                  return {
-                    ...med,
-                    number: e.target.value
-                  };
-                } else {
-                  return med;
-                }
-              });
+          >
+            <div>
+              <Input
+                style={{
+                  padding: "5px"
+                }}
+                placeholder="Medicine Name"
+                name="name"
+                value={this.state.meds[i] ? this.state.meds[i].name : null}
+                onChange={e => {
+                  const newMeds = this.state.meds.map((med, index) => {
+                    if (index === i) {
+                      return {
+                        ...med,
+                        name: e.target.value
+                      };
+                    } else {
+                      return med;
+                    }
+                  });
 
-              this.setState({
-                meds: newMeds
-              });
-            }}
-          />
-          <Input
-            style={{ marginTop: "10px" }}
-            placeholder="Timing"
-            name="timing"
-            value={this.state.meds[i] ? this.state.meds[i].timing : null}
-            onChange={e => {
-              const newMeds = this.state.meds.map((med, index) => {
-                if (index === i) {
-                  return {
-                    ...med,
-                    timing: e.target.value
-                  };
-                } else {
-                  return med;
-                }
-              });
+                  this.setState({
+                    meds: newMeds
+                  });
+                }}
+              />
+            </div>
+            <div>
+              <Input
+                style={{
+                  padding: "5px"
+                }}
+                placeholder="Dosage per intake"
+                name="number"
+                value={this.state.meds[i] ? this.state.meds[i].number : null}
+                onChange={e => {
+                  const newMeds = this.state.meds.map((med, index) => {
+                    if (index === i) {
+                      return {
+                        ...med,
+                        number: e.target.value
+                      };
+                    } else {
+                      return med;
+                    }
+                  });
 
-              this.setState({
-                meds: newMeds
-              });
-            }}
-          />
+                  this.setState({
+                    meds: newMeds
+                  });
+                }}
+              />
+            </div>
+            <div>
+              <Input
+                style={{
+                  padding: "5px"
+                }}
+                placeholder="Timing"
+                name="timing"
+                value={this.state.meds[i] ? this.state.meds[i].timing : null}
+                onChange={e => {
+                  const newMeds = this.state.meds.map((med, index) => {
+                    if (index === i) {
+                      return {
+                        ...med,
+                        timing: e.target.value
+                      };
+                    } else {
+                      return med;
+                    }
+                  });
+
+                  this.setState({
+                    meds: newMeds
+                  });
+                }}
+              />
+            </div>
+          </div>
           <div
             style={{
               marginTop: "10px",
@@ -480,35 +502,44 @@ class UpcomingAppointments extends Component {
               (this.props.treatment &&
                 this.props.treatment.meds &&
                 this.props.treatment.meds.length === 0) ? (
-                <div style={{ padding: "1rem" }}>
-                  <Button
-                    primary
-                    onClick={() => {
-                      const meds = this.state.meds.map(med => {
-                        let str = `${med.name},${med.number},${med.timing},${
-                          med.lunch ? "true" : "false"
-                        },${med.dinner ? "true" : "false"}`;
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    padding: "1rem"
+                  }}
+                >
+                  <div>
+                    <Button
+                      primary
+                      onClick={() => {
+                        const meds = this.state.meds.map(med => {
+                          let str = `${med.name},${med.number},${med.timing},${
+                            med.lunch ? "true" : "false"
+                          },${med.dinner ? "true" : "false"}`;
 
-                        return str;
-                      });
-
-                      const firestore = getFirestore();
-
-                      firestore
-                        .collection("treatments")
-                        .doc(this.props.match.params.id)
-                        .update({
-                          disease: this.state.disease,
-                          diet: this.state.diet,
-                          meds,
-                          isDiagnosed: true
+                          return str;
                         });
 
-                      this.props.history.push("/doctors");
-                    }}
-                  >
-                    Submit
-                  </Button>
+                        const firestore = getFirestore();
+
+                        firestore
+                          .collection("treatments")
+                          .doc(this.props.match.params.id)
+                          .update({
+                            disease: this.state.disease,
+                            diet: this.state.diet,
+                            meds,
+                            isDiagnosed: true
+                          });
+
+                        this.props.history.push("/doctors");
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </div>
               ) : null}
             </Form>
