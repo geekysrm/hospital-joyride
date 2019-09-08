@@ -14,11 +14,14 @@ import { Descriptions } from "antd";
 
 class Doctor extends Component {
   render() {
+    if(this.props.current_user !== 'doctor') {
+      this.props.history.push('/')
+    }
     const { doctors, upcomingAppointments } = this.props;
     console.log(doctors);
     console.log(upcomingAppointments);
     return (
-      <div>
+      <div className="page-container">
         {doctors ? (
           doctors.map(doctor => (
             <div key={doctor.id}>
@@ -79,7 +82,8 @@ class Doctor extends Component {
 
 const mapStateToProps = (state, props) => ({
   doctors: state.firestore.ordered.doctors,
-  upcomingAppointments: state.firestore.ordered.upcomingAppointments
+  upcomingAppointments: state.firestore.ordered.upcomingAppointments,
+  current_user: state.current_user.current_user
 });
 
 export default withFirestore(

@@ -69,6 +69,9 @@ class Parent extends Component {
   };
 
   render() {
+    if (this.props.current_user !== "parent") {
+      this.props.history.push("/");
+    }
     return (
       <div className="page-container">
         {this.props.parents && this.props.parents.length !== 0 ? (
@@ -139,7 +142,8 @@ class Parent extends Component {
 const mapStateToProps = state => ({
   parents: state.firestore.ordered.parents,
   pastTreatments: state.firestore.ordered.pastTreatments,
-  currentTreatments: state.firestore.ordered.currentTreatments
+  currentTreatments: state.firestore.ordered.currentTreatments,
+  current_user: state.current_user.current_user
 });
 
 export default withFirestore(

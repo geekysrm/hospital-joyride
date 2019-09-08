@@ -21,7 +21,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Navbar></Navbar>
-        <div className="container-fluid">
+        <div className="container-fluid h-100">
           <Switch>
             <Route exact path="/" component={Landing}></Route>
             <Route exact path="/doctors" component={Doctor}></Route>

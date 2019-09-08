@@ -39,7 +39,11 @@ class TreatmentDetails extends Component {
       doctor: data
     });
   };
+
   render() {
+    if (this.props.current_user !== "parent") {
+      this.props.history.push("/");
+    }
     const { doctor } = this.state;
     const columns = [
       {
@@ -128,7 +132,7 @@ class TreatmentDetails extends Component {
     }
 
     return (
-      <div style={{ marginBottom: "1rem" }}>
+      <div style={{ marginBottom: "1rem" }} className="page-container">
         {this.props.treatment ? (
           <>
             <div className="header">
@@ -290,7 +294,8 @@ class TreatmentDetails extends Component {
 const mapStateToProps = state => ({
   treatment: state.firestore.ordered.treatment
     ? state.firestore.ordered.treatment[0]
-    : null
+    : null,
+  current_user: state.current_user.current_user
 });
 
 export default withFirestore(
