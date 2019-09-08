@@ -6,7 +6,7 @@ export default class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/">
-          Hospital Adventure
+          Hospital Joyride
         </Link>
         <button
           className="navbar-toggler"
