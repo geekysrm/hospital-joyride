@@ -1,6 +1,6 @@
 .story-container {
   width: 100%;
-  height: 85vh;
+  height: 70vh;
   margin: 1rem 0;
   padding: 1rem;
   border: 1px solid #eee;
@@ -11,7 +11,7 @@
 
 .btn-container {
   position: fixed;
-  bottom: 30px;
+  bottom: 35px;
   right: 30px;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .comic-img {
-  height: 60vh;
+  height: 300px;
   object-fit: contain;
 }
 
@@ -33,17 +33,19 @@
   width: 300px;
   padding: 0.5rem;
   position: absolute;
-  bottom: 12px;
+  bottom: 14px;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
-  filter: blur(0.6px);
+  filter: blur(0.4px);
+  border: 2px solid #000;
+  border-radius: 10px;
 }
 
 .mute-icon-container {
   position: fixed;
   bottom: 40px;
-  left: 50px;
+  left: 25px;
 }
