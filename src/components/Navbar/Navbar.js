@@ -1,21 +1,29 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   render() {
     return (
       <nav
         className="navbar fixed-top navbar-expand-lg navbar-light"
+        style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <Link className="navbar-brand" to="/">
-          Hospital Joyride
-        </Link>
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <a className="nav-link" href="/">Logout</a>
-          </li>
-        </ul>
+        <div>
+          <Link className="navbar-brand" to="/">
+            Hospital Joyride
+          </Link>
+        </div>
+
+        {this.props.location.pathname !== "/" && (
+          <div>
+            <a className="nav-link" href="/">
+              Logout
+            </a>
+          </div>
+        )}
       </nav>
     );
   }
 }
+
+export default withRouter(Navbar);

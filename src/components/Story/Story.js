@@ -179,11 +179,11 @@ class Story extends Component {
   };
 
   render() {
-    if(this.props.current_user !== 'parent') {
-      this.props.history.push('/');
+    if (this.props.current_user !== "parent") {
+      this.props.history.push("/");
     }
     return (
-      <div>
+      <div className="page-container">
         {this.state.showModal && (
           <div style={{ marginTop: "1rem" }}>
             <Alert

@@ -1,6 +1,11 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import { Provider } from "react-redux";
 
 import store from "./store";
@@ -40,6 +45,7 @@ function App() {
                 <UpcomingAppointments {...props} isAuthed={true} />
               )}
             ></Route>
+            <Redirect from="*" to={"/"} />
           </Switch>
         </div>
       </Router>
