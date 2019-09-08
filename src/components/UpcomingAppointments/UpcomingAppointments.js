@@ -531,7 +531,8 @@ class UpcomingAppointments extends Component {
                             disease: this.state.disease,
                             diet: this.state.diet,
                             meds,
-                            isDiagnosed: true
+                            isDiagnosed: true,
+                            storyPointer: "part_2_1"
                           });
 
                         this.props.history.push("/doctors");

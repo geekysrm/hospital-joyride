@@ -122,7 +122,8 @@ class HelpChatbot extends Component {
                   ...this.state.childInfo,
                   assignedDoc: "s9OhzTJRhZJtebPKZeUN",
                   isCompleted: false,
-                  isDiagnosed: false
+                  isDiagnosed: false,
+                  storyPointer: "part_1_1"
                 });
 
                 this.setState({

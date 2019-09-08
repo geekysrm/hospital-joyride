@@ -6,6 +6,9 @@ import img5 from "./comic/5.png";
 import img6 from "./comic/6.png";
 import img7 from "./comic/7.png";
 import img8 from "./comic/8.png";
+import img9 from "./comic/9.png";
+import img10 from "./comic/10.png";
+import img11 from "./comic/11.png";
 
 export default {
   part_1_1: {
@@ -89,5 +92,33 @@ export default {
       next: null
     },
     action: "wait_part_1"
+  },
+  part_2_1: {
+    custom: false,
+    image: img9,
+    text: `I have completed my tests your super power will be recovered soon.`,
+    pointers: {
+      prev: null,
+      next: "part_2_2"
+    }
+  },
+  part_2_2: {
+    custom: false,
+    image: img10,
+    text: `I have prepared some magical potions which will speed up your recovery.`,
+    pointers: {
+      prev: "part_2_1",
+      next: "wait_part_2"
+    }
+  },
+  wait_part_2: {
+    custom: false,
+    image: img11,
+    text: `Take those magical potions and take care of your self.`,
+    pointers: {
+      prev: "part_2_2",
+      next: null
+    },
+    action: "wait_part_2"
   }
 };

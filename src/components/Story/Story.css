@@ -39,7 +39,7 @@
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
-  filter: blur(0.75px);
+  filter: blur(0.6px);
 }
 
 .mute-icon-container {
