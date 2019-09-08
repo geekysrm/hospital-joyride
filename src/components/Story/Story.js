@@ -179,6 +179,9 @@ class Story extends Component {
   };
 
   render() {
+    if(this.props.current_user !== 'parent') {
+      this.props.history.push('/');
+    }
     return (
       <div>
         {this.state.showModal && (
@@ -228,7 +231,8 @@ class Story extends Component {
 const mapStateToProps = state => ({
   treatment: state.firestore.ordered.treatment
     ? state.firestore.ordered.treatment[0]
-    : null
+    : null,
+  current_user: state.current_user.current_user
 });
 
 export default withFirestore(

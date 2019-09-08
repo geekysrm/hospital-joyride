@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant&display=swap');
+
 html {
   height: 100%;
 }
 
 body {
   height: 100%;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Assistant', sans-serif !important;
 }
 
 div#root {
@@ -14,4 +16,16 @@ div#root {
 div.app {
   height: 100%;
   background-color: cornsilk;
+}
+
+.navbar {
+  background-color: #5777b2;
+}
+
+.navbar-brand {
+  color: white !important;
+}
+
+.nav-link {
+  color: white !important;
 }

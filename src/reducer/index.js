@@ -1,11 +1,17 @@
-import { combineReducers } from "redux";
-import { firebaseStateReducer as firebase } from "react-redux-firebase";
-import firebaseReducer from "react-redux-firebase/lib/reducer";
-import { firestoreReducer } from "redux-firestore";
+import { stat } from "fs"
 
-const rootReducer = combineReducers({
-  firebase: firebaseReducer,
-  firestore: firestoreReducer
-});
+const initialState = {
+  current_user: null
+}
 
-export default rootReducer;
+export default function (state = initialState, {type, payload}) {
+  switch(type) {
+    case 'LOGIN': 
+      return {
+        ...state,
+        current_user: payload
+      }
+    default:
+      return state;
+  }
+}

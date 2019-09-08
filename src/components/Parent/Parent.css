@@ -1,7 +1,8 @@
 .page-container {
   width: 100%;
-  min-height: 85vh;
+  min-height: 100%;
   position: relative;
+  margin-top: 75px;
 }
 
 .header {
@@ -11,7 +12,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .header-name {

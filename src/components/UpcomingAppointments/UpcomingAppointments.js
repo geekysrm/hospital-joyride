@@ -227,7 +227,11 @@ class UpcomingAppointments extends Component {
       doctor: data
     });
   };
+
   render() {
+    if (this.props.current_user !== "doctor") {
+      this.props.history.push("/");
+    }
     const columns = [
       {
         title: "Tablet Name",
@@ -315,7 +319,7 @@ class UpcomingAppointments extends Component {
       });
     }
     return (
-      <div style={{ marginBottom: "1rem" }}>
+      <div style={{ marginBottom: "1rem" }} className="page-container">
         {this.props.treatment ? (
           <div>
             <div className="header">
@@ -585,7 +589,8 @@ class UpcomingAppointments extends Component {
 const mapStateToProps = state => ({
   treatment: state.firestore.ordered.treatment
     ? state.firestore.ordered.treatment[0]
-    : null
+    : null,
+  current_user: state.current_user.current_user
 });
 
 export default withFirestore(

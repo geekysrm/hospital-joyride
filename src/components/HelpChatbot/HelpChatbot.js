@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
 
 import "./HelpChatbot.css";
 import chatBotImage from "../../assets/chat-bot.jpg";
@@ -303,8 +304,11 @@ class HelpChatbot extends Component {
   };
 
   render() {
+    if (this.props.current_user !== "parent") {
+      this.props.history.push("/");
+    }
     return (
-      <div>
+      <div className="page-container">
         <div className="chatbot-container">
           <div className="chat-header">
             <div>
@@ -324,4 +328,8 @@ class HelpChatbot extends Component {
   }
 }
 
-export default HelpChatbot;
+const mapStateToProps = state => ({
+  current_user: state.current_user.current_user
+})
+
+export default connect(mapStateToProps, null)(HelpChatbot);
